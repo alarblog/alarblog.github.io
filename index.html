@@ -1,12 +1,14 @@
+---
+layout: null
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Profile Feed</title>
+  <title>{{ site.title | default: "My Profile Feed" }}</title>
   
   <style>
-    /* Base Color Variables (Dark Mode Default) */
     :root {
       --primary: #00bcd4;
       --primary-hover: #00acc1;
@@ -26,7 +28,6 @@
       line-height: 1.5;
     }
 
-    /* Header / Cover Area */
     .profile-header {
       background: var(--bg-card);
       border-bottom: 1px solid var(--border-color);
@@ -73,14 +74,12 @@
       max-width: 500px;
     }
 
-    /* Main Container Layout */
     .container {
       max-width: 700px;
       margin: 20px auto;
       padding: 0 15px;
     }
 
-    /* Social Feed Cards */
     .post {
       background: var(--bg-card);
       border-radius: var(--radius);
@@ -158,7 +157,6 @@
 </head>
 <body>
 
-  <!-- Profile Header -->
   <header class="profile-header">
     <div class="cover-photo"></div>
     <div class="profile-info">
@@ -167,84 +165,35 @@
         <h1>Your Name</h1>
       </div>
       <div class="profile-bio">
-        Welcome to my social feed! Sharing project updates, blog posts, and notes.
+        Welcome to my social feed! Sharing thoughts, code, and updates.
       </div>
     </div>
   </header>
 
-  <!-- Feed Container -->
   <main class="container">
-    
-    <!-- Example Post Card -->
-<article class="post">
-  <div class="post-header">
-    <div class="post-avatar">P</div>
-    <div class="post-meta">
-      <a href="#">Your Name</a>
-      <span>September 7, 2026</span>
-    </div>
-  </div>
-  
-  <h2 class="post-title">
-    <a href="#">ⵎⴰ ⵉⴳⴰⵏ ⵜⵉⵍⴻⵍⵍⵉ? </a>
-  </h2>
-  
-  <div class="post-body">
-    what does freedome mean? ما معنى الحرية؟ ⵎⴰ ⵉⴳⴰⵏ ⵜⵉⵍⴻⵍⵍⵉ?
-    
-  </div>
-
-  <div class="post-footer">
-    <button class="action-btn" onclick="sharePost(window.location.href, 'My Post Title Goes Here')">Share</button>
-  </div>
-</article>
-
-    
-    <article class="post">
-      <div class="post-header">
-        <div class="post-avatar">P</div>
-        <div class="post-meta">
-          <a href="#">Your Name</a>
-          <span>September 7, 2026</span>
+    {% for post in site.posts %}
+      <article class="post">
+        <div class="post-header">
+          <div class="post-avatar">P</div>
+          <div class="post-meta">
+            <a href="#">Your Name</a>
+            <span>{{ post.date | date: "%B %d, %Y" }}</span>
+          </div>
         </div>
-      </div>
-      
-      <h2 class="post-title">
-        <a href="#">First Post Title</a>
-      </h2>
-      
-      <div class="post-body">
-        This is a sample post content. You can write plain HTML, add images, or insert links here.
-      </div>
+        
+        <h2 class="post-title">
+          <a href="{{ post.url }}">{{ post.title }}</a>
+        </h2>
+        
+        <div class="post-body">
+          {{ post.content }}
+        </div>
 
-      <div class="post-footer">
-        <button class="action-btn" onclick="sharePost(window.location.href, 'First Post Title')">Share</button>
-      </div>
-    </article>
-
-    <article class="post">
-  <div class="post-header">
-    <div class="post-avatar">P</div>
-    <div class="post-meta">
-      <a href="#">Your Name</a>
-      <span>September 7, 2026</span>
-    </div>
-  </div>
-  
-  <h2 class="post-title">
-    <a href="#">My second post</a>
-  </h2>
-  
-  <div class="post-body">
-    This is where I write whatever I want to say in my post! mmmm 
-    ⵔⴰⴷ ⵏⵥⵕ
-  </div>
-
-  <div class="post-footer">
-    <button class="action-btn" onclick="sharePost(window.location.href, 'My Post Title Goes Here')">Share</button>
-  </div>
-</article>
-
+        <div class="post-footer">
+          <button class="action-btn" onclick="sharePost('{{ site.url }}{{ post.url }}', '{{ post.title }}')">Share</button>
+        </div>
+      </article>
+    {% endfor %}
   </main>
 
   <script>
