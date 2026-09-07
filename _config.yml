@@ -1,12 +1,1 @@
-remote_theme: sergiokopplin/indigo
-
-
-
-
-
-
-plugins:
-  - jekyll-remote-theme
-
-title: "مدونتي الشخصية"
-description: "مرحباً بكم في موقعي البسيط الجديد"
+theme: null
