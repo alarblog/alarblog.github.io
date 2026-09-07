@@ -1,210 +1,27 @@
 ---
-layout: null
+layout: default
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>{{ site.title | default: "My Profile Feed" }}</title>
-  
-  <style>
-    :root {
-      --primary: #00bcd4;
-      --primary-hover: #00acc1;
-      --bg-body: #18191a;
-      --bg-card: #242526;
-      --text-main: #e4e6eb;
-      --text-muted: #b0b3b8;
-      --border-color: #3e4042;
-      --radius: 12px;
-    }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg-body);
-      color: var(--text-main);
-      line-height: 1.5;
-    }
-
-    .profile-header {
-      background: var(--bg-card);
-      border-bottom: 1px solid var(--border-color);
-    }
-    .cover-photo {
-      height: 180px;
-      background: linear-gradient(135deg, var(--primary), #006064);
-      width: 100%;
-    }
-    .profile-info {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 0 20px 20px 20px;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-    .avatar {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      border: 4px solid var(--bg-card);
-      background-color: var(--primary);
-      margin-top: -55px;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 36px;
-      font-weight: bold;
-    }
-    .profile-title h1 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-    .profile-bio {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-top: 4px;
-      max-width: 500px;
-    }
-
-    .container {
-      max-width: 700px;
-      margin: 20px auto;
-      padding: 0 15px;
-    }
-
-    .post {
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      border: 1px solid var(--border-color);
-      padding: 20px;
-      margin-bottom: 16px;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-    }
-    .post-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-    .post-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--primary);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      margin-right: 10px;
-    }
-    .post-meta a {
-      font-weight: 600;
-      color: var(--text-main);
-      text-decoration: none;
-    }
-    .post-meta span {
-      display: block;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-    .post-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-    .post-title a {
-      color: var(--text-main);
-      text-decoration: none;
-    }
-    .post-title a:hover {
-      color: var(--primary);
-    }
-    .post-body {
-      font-size: 0.95rem;
-      color: var(--text-main);
-      margin-bottom: 15px;
-    }
-    .post-footer {
-      border-top: 1px solid var(--border-color);
-      padding-top: 10px;
-      display: flex;
-      gap: 15px;
-    }
-    .action-btn {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 600;
-      background: none;
-      border: none;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      font-family: inherit;
-    }
-    .action-btn:hover {
-      color: var(--primary);
-    }
-  </style>
-</head>
-<body>
-
-  <header class="profile-header">
-    <div class="cover-photo"></div>
-    <div class="profile-info">
-      <div class="avatar">P</div>
-      <div class="profile-title">
-        <h1>Your Name</h1>
-      </div>
-      <div class="profile-bio">
-        Welcome to my social feed! Sharing thoughts, code, and updates.
+{% for post in site.posts %}
+  <article class="post">
+    <div class="post-header">
+      <div class="post-avatar">P</div>
+      <div class="post-meta">
+        <a href="#">Your Name</a>
+        <span>{{ post.date | date: "%B %d, %Y" }}</span>
       </div>
     </div>
-  </header>
+    
+    <h2 class="post-title">
+      <a href="{{ post.url }}">{{ post.title }}</a>
+    </h2>
+    
+    <div class="post-body">
+      {{ post.content }}
+    </div>
 
-  <main class="container">
-    {% for post in site.posts %}
-      <article class="post">
-        <div class="post-header">
-          <div class="post-avatar">P</div>
-          <div class="post-meta">
-            <a href="#">Your Name</a>
-            <span>{{ post.date | date: "%B %d, %Y" }}</span>
-          </div>
-        </div>
-        
-        <h2 class="post-title">
-          <a href="{{ post.url }}">{{ post.title }}</a>
-        </h2>
-        
-        <div class="post-body">
-          {{ post.content }}
-        </div>
-
-        <div class="post-footer">
-          <button class="action-btn" onclick="sharePost('{{ site.url }}{{ post.url }}', '{{ post.title }}')">Share</button>
-        </div>
-      </article>
-    {% endfor %}
-  </main>
-
-  <script>
-    function sharePost(url, title) {
-      if (navigator.share) {
-        navigator.share({ title: title, url: url }).catch(() => {});
-      } else {
-        navigator.clipboard.writeText(url);
-        alert('Link copied to clipboard!');
-      }
-    }
-  </script>
-</body>
-</html>
+    <div class="post-footer">
+      <button class="action-btn" onclick="sharePost('{{ site.url }}{{ post.url }}', '{{ post.title }}')">Share</button>
+    </div>
+  </article>
+{% endfor %}
